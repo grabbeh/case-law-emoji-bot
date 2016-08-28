@@ -29,7 +29,7 @@ async.auto({
     
     
     }],
-    emojifySummary: [, provideCaseUrl', 'getCase', 'summariseCaseUrl', function(cb, results){
+    emojifySummary: ['provideCaseUrl', 'getCase', 'summariseCaseUrl', function(cb, results){
     
     
     
