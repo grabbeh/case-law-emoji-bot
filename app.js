@@ -1,85 +1,94 @@
-let request = require("request"),
-    config = require('./config'),
+
+const request = require("request"),
+    got = require('got'),
+    config = require('./config/config'),
     async = require("async"),
     cheerio = require("cheerio"),
     emoji = require("node-emoji"),
-    twitter = require("twitter"),
+    isEmoji = require('is-emoji-keyword'),
+    Twitter = require("twitter"),
     _ = require('underscore'),
-    summariser = require("nodejs-text-summariser"),
-    client = new twitter({
+    summarise = require("nodejs-text-summarizer"),
+    client = new Twitter({
         consumer_key: config.consumerkey,
         consumer_secret: config.consumerSecret,
         access_token_key: config.accessKey,
         access_token_secret: config.accessSecret   
     })
     
-let number = _.random(0, 550).toString();
-
-if (number.length === 1) 
-  number = "000" + number;
+var num = _.random(0, 550).toString();
+if (num.length === 1) 
+  num = "000" + num;
+if (num.length === 2)
+  num = "00" + num;
+if (num.length === 3)
+  num = "0" + num;
   
-if (number.length === 2)
-  number = "00" + number;
-  
-if (number.length === 3)
-  number = "0" + number;
-  
-let BailiiUrl = "http://www.bailii.org/indices/all-cases-" + number + ".html";
+var BailiiUrl = "http://www.bailii.org/indices/all-cases-" + num + ".html";
 
 async.auto({
-    provideCaseUrl: function(cb, results){
-        provideCaseUrl(BailiiUrl, cb)
+    caseUrl: function(cb){
+        provideCaseUrl(BailiiUrl, cb);
     },
-    getCase: ['provideCaseUrl', function(cb, results){
-        getCase(results[0], cb);
+    caseDetails: ['caseUrl', function(results, cb){
+        getCase(results.caseUrl, cb);
     }],
-    summariseCase: ['provideCaseUrl', 'getCase', function(cb, results){
-        summariseCase(results[1], cb);
+    caseSummary: ['caseUrl', 'caseDetails', function(results, cb){
+        summariseCase(results.caseDetails, cb);
     }],
-    emojifySummary: ['provideCaseUrl', 'getCase', 'summariseCaseUrl', function(cb, results){
-        emojifySummary(results[2], cb);
+    emojiSummary: ['caseUrl', 'caseDetails', 'caseSummary', function(results, cb){
+        emojifySummary(results.caseSummary, cb);
+    }]
     }, function(err, results){
-        client.post('statuses/update', {status: results[3]},  function(error, tweet, response) {
-        });
+            //var status = results.caseUrl + " " + results.emojiSummary;
+            client.post('statuses/update', {status: emoji.emojify('I :heart: :coffee:')},  function(error, tweet, response) {
+            });
     })
-})
 
-
-function provideCaseUrl(BailiiUrl, fn){
-    request(BailiiUrl, function(error, response, body){
+function provideCaseUrl(url, fn){
+    request(url, function(error, response, body){
         if (!error && response.statusCode == 200) {
-            let $ = cheerio.load(body);
-            var caseUrl = _.sample(_.map($('ul').nextAll(), function(url){url = url.data('href'); return url;}));
+            var $ = cheerio.load(body);
+            var urlArray = $('ul').find('li').find('a').map(function(index, el){
+                return $(this).attr('href');
+            });
+            var caseUrl = "http://www.bailii.org" + _.sample(_.values(urlArray));
             fn(null, caseUrl);
         }
     })
 } 
 
-function getCase(caseUrl, fn){
-    request(caseUrl, function(error, response, body){
+function getCase(url, fn){
+    request(url, function(error, response, body){
         if (!error && response.statusCode == 200) {
-            let $ = cheerio.load(body);
-            case = $('ol').nextAll;
-            fn(null, case);
+            var $ = cheerio.load(body);
+            caseLaw = $('body').find('p').map(function(index, el){
+                return $(this).text();
+            }).get().join(' ');
+            fn(null, caseLaw);
         }
     })
 }
 
-function summariseCase(case, fn){
-    return fn(null, summariser(case));
+function summariseCase(caseLaw, fn){
+    var summary = summarise(caseLaw).split(' ');
+
+    fn(null, _.without(summary, "BAILII"));
 }
 
 function emojifySummary(summary, fn){
-    let caseArray = summary.split(' ');
-    let emojis = [];
-    _.each(caseArray, function(item){
-        let em = emoji.which(emoji.get(item));
-        emojis.push(em);
+    var emojis = [];
+    _.each(summary, function(item){
+        got('emoji.getdango.com/api/emoji', {
+            json: true,
+            query: {
+                q: item
+            }
+        }).then(function(res){
+            res.body.results.map(function(x){
+                emojis.push(x.text);
+            })   
+        })
     })
-    fn(null, emoji.emojify(emojis.join(" ")));
-}
-
-function postTweet(content, fn){
-    client.post('statuses/update', {status: content},  function(error, tweet, response) {
-    });
-}
+    fn(null, emojis.join(" "));
+};
