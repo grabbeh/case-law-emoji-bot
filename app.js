@@ -40,45 +40,54 @@ async.auto({
         emojifySummary(results.caseSummary, cb);
     }]
     }, function(err, results){
-            //var status = results.caseUrl + " " + results.emojiSummary;
-            client.post('statuses/update', {status: emoji.emojify('I :heart: :coffee:')},  function(error, tweet, response) {
-            });
+        if (err)
+            console.log(err);
+        var status = results.caseUrl + " " + results.emojiSummary;
+        var status = status.slice(0, 140);
+        client.post('statuses/update', {status: status},  function(err, tweet, response) {
+            if (err)    
+                console.log(err);
+            else        
+                console.log(response);
+        });
     })
 
 function provideCaseUrl(url, fn){
-    request(url, function(error, response, body){
-        if (!error && response.statusCode == 200) {
-            var $ = cheerio.load(body);
-            var urlArray = $('ul').find('li').find('a').map(function(index, el){
-                return $(this).attr('href');
-            });
-            var caseUrl = "http://www.bailii.org" + _.sample(_.values(urlArray));
+    request(url, function(err, response, body){
+        var $ = cheerio.load(body);
+        var urlArray = $('ul').find('li').find('a').map(function(index, el){
+            return $(this).attr('href');
+        });
+        var caseUrl = "http://www.bailii.org" + _.sample(_.values(urlArray));
+        if (err)
+            fn(err);
+        else
             fn(null, caseUrl);
-        }
     })
 } 
 
 function getCase(url, fn){
-    request(url, function(error, response, body){
-        if (!error && response.statusCode == 200) {
-            var $ = cheerio.load(body);
-            caseLaw = $('body').find('p').map(function(index, el){
-                return $(this).text();
-            }).get().join(' ');
-            fn(null, caseLaw);
-        }
+    request(url, function(err, response, body){
+        var $ = cheerio.load(body);
+        caseText = $('body').find('p').map(function(index, el){
+            return $(this).text();
+        }).get().join(' ');
+        if (err)
+            fn(err);
+        else
+            fn(null, caseText);
+        
     })
 }
 
-function summariseCase(caseLaw, fn){
-    var summary = summarise(caseLaw).split(' ');
-
-    fn(null, _.without(summary, "BAILII"));
+function summariseCase(text, fn){
+    var summary = summarise(text).split(' ');
+    fn(null, _.without(summary, "BAILII", " "));
 }
 
 function emojifySummary(summary, fn){
     var emojis = [];
-    _.each(summary, function(item){
+    async.forEach(summary, function(item, callback){
         got('emoji.getdango.com/api/emoji', {
             json: true,
             query: {
@@ -87,8 +96,13 @@ function emojifySummary(summary, fn){
         }).then(function(res){
             res.body.results.map(function(x){
                 emojis.push(x.text);
+                callback();
             })   
-        })
-    })
-    fn(null, emojis.join(" "));
+        });
+    },  function(err){
+        if (err)
+            fn(err);
+        else
+            fn(null, emojis.join(" "));
+    });
 };
