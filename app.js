@@ -37,6 +37,7 @@ function postTweet(url, content, fn){
         });
 }
 
+// Takes URL from Bailii.org and returns emoji summary
 function getEmojiSummary(url, fn){
     async.auto({
         caseDetails: [function(cb){
