@@ -17,7 +17,9 @@ const baseUrl = require("./baseUrl"),
 
 provideCaseUrl(baseUrl(), function(err, url){
     getEmojiSummary(url, function(err, results){
-        postTweet(url, results.emojiSummary, function(err, res){
+        var content = url + " " + content;
+        var content = status.slice(0, 140);
+        postTweet(content, function(err, res){
             if (err)    
                 console.log(err);
             else        
@@ -26,9 +28,7 @@ provideCaseUrl(baseUrl(), function(err, url){
     });
 })
 
-function postTweet(url, content, fn){
-    var status = url + " " + content;
-    var status = status.slice(0, 140);
+function postTweet(status, fn){
     client.post('statuses/update', {status: status},  function(err, tweet, response) {
         if (err)
             fn(err)
