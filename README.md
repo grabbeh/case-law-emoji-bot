@@ -6,7 +6,7 @@ In future you can maybe tweet a law case URL to him and he will respond with an 
 
 **Responding to Tweets**
 
-- GET https://api.twitter.com/1.1/statuses/mentions_timeline.json
+- GET https://api.twitter.com/1.1/statuses/mentions_timeline.json OR ideally set up stream of new Tweets
 - Check ID store to see if any new tweets need responding to
 - If there are new tweets, process them accordingly
 - Reply with person mentioning, with emoji summary only
