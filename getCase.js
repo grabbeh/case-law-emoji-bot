@@ -4,7 +4,7 @@ var request = require("request"),
 module.exports = function(url, fn){
     request(url, function(err, response, body){
         var $ = cheerio.load(body);
-        caseText = $('body').find('p').map(function(index, el){
+        var caseText = $('body').find('p').map(function(index, el){
             return $(this).text();
         }).get().join(' ');
         if (err)
