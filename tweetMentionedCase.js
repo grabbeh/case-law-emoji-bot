@@ -97,9 +97,7 @@ function returnBailiiLink(text, fn){
     }, 
     function(err, results){
         if (err)
-        {
             fn(err)
-        }
         else 
             fn(null, results);
     })
@@ -110,9 +108,9 @@ function checkForLink(text, fn){
         var link = text.slice(text.indexOf("http")).split(" ")[0];
         fn(null, link);
     }
-    else {
+    else 
         fn(new Error("No link"));
-    }
+    
 }
 
 function expandLink(url, fn){
@@ -124,11 +122,9 @@ function expandLink(url, fn){
 }
 
 function checkIfBailiiLink(url, fn){
-    if (url && url.indexOf('bailii') !== -1) {
-        fn(null, url);
-    }
-    else {
+    if (url && url.indexOf('bailii') !== -1) 
+        fn(null, url)
+    else 
         fn(new Error("No link to Bailii"));
-    }
 }
 
