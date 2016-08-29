@@ -6,8 +6,10 @@ const baseUrl = require("./baseUrl"),
 
 provideCaseUrl(baseUrl(), function(err, url){
     getEmojiSummary(url, function(err, res){
-        var content = url + " " + res.emojiSummary;
-        var content = content.slice(0, 140);
+        var content = {}
+        var status = url + " " + res.emojiSummary;
+        var status = content.slice(0, 140);
+        content.status = status;
         tweet.newTweet(content, function(err, res){
             if (err)    
                 console.log(err);
@@ -16,8 +18,3 @@ provideCaseUrl(baseUrl(), function(err, url){
         })
     });
 })
-
-
-
-
-
