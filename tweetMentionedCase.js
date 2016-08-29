@@ -67,8 +67,11 @@ function replyToMention(mention, fn){
         }
             
         else {
-            var content = "@" + mention.user.screen_name + " " + res.emojiSummary;
-            var content = content.slice(0, 140);
+            var content = {};
+            var status = "@" + mention.user.screen_name + " " + res.emojiSummary;
+            var status = content.slice(0, 140);
+            var content.in_reply_status_id = mention.id_str;
+            content.status = status;
             tweet.newTweet(content, function(err, res){
                 if (err)
                     fn(new Error(err));
