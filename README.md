@@ -1,17 +1,17 @@
-# case-law-emoji-bot
+** case-law-emoji-bot **
 
 This bot grabs a case from www.bailii.org, runs it through a text summariser, converts it to emoji and posts to Twitter.
 
 In future you can maybe tweet a law case URL to him and he will respond with an emoji summary.
 
-# Responding to Tweets
+** Responding to Tweets **
 
 - GET https://api.twitter.com/1.1/statuses/mentions_timeline.json
 - Check ID store to see if any new tweets need responding to
 - If there are new tweets, process them accordingly
 - Reply with person mentioning, with emoji summary only
 
-# Firebase
+** Firebase **
 
 `var firebase = require("firebase");`
 
