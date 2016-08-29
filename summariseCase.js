@@ -1,7 +1,12 @@
-var summarise = require("nodejs-text-summarizer"),
-    _ = require("underscore");
+var tool = require("node-summary")
 
 module.exports = function(text, fn){
-    var summary = summarise(text).split(' ');
-    fn(null, _.without(summary, "BAILII", " "));
+    tool.summarize("", text, function(err, summary){
+        if (err)
+            fn(new Error(err));
+        else {
+            summary.split(" ");
+            fn(null, summary)
+        }
+    })
 }

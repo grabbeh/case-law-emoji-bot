@@ -4,36 +4,38 @@ const tweet = require('./postTweet'),
     _ = require('underscore'),
     request = require('request')
 
-mentions = [
+testMentions = [
     { text: "@grabbeh I am impressed! @caselawemoji"},
     { text: "this is the one https://t.co/ywUHRHBu47", user: {screen_name:"grabbeh"}},
     { text: "This tweet does not contain a URL"}
 ]
 
-/*tweet.getMentions(function(err, mentions){
-    if (err)
-        console.log(err);*/
+tweet.getMentions(function(err, mentions){
     checkMentions(mentions, function(err, res){
         if (err)
             console.log(err)
         else   
             console.log(res)
     })
-//})
+})
 
 function checkMentions(mentions, fn){
     extractAnyBailiiLinks(mentions, function(err, bailiiMentions){
         async.forEach(bailiiMentions, function(i, callback){
             replyToMention(i, function(err, res){
-                callback();
-            }, function(err){
+                if (err){
+                    callback();
+                }
+                else 
+                    callback();
+            })
+        }, function(err){
                 if (err)
                     fn(err)
                 else   
-                    fn(null, "Success")
+                    fn(null, "Tweet posted")
             })
         })
-    })
 }
 
 function extractAnyBailiiLinks(mentions, fn){
@@ -59,15 +61,22 @@ function extractAnyBailiiLinks(mentions, fn){
 
 function replyToMention(mention, fn){
     getEmojiSummary(mention.url, function(err, res){
-        if (err)
+        if (err){
+            fn(err)
             console.log(err)
-        var content = "@" + mention.user.screen_name + " " + res.emojiSummary;
-        tweet.postTweet(content, function(err, res){
-            if (err)
-                fn(new Error(err));
-            else   
-                fn(null, res)
-        })
+        }
+            
+        else {
+            var content = "@" + mention.user.screen_name + " " + res.emojiSummary;
+            var content = content.slice(0, 140);
+            tweet.newTweet(content, function(err, res){
+                if (err)
+                    fn(new Error(err));
+                else   
+                    fn(null, res)
+            })
+
+        }
     })
 }
 

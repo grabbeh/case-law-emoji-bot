@@ -19,7 +19,7 @@ module.exports = function(url, fn){
         }, 
     function(err, results){
         if (err)
-            fn(err);
+            fn(new Error(err));
         else
             fn(null, results);
     })

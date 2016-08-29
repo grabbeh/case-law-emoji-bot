@@ -5,6 +5,7 @@
     "async": "2.0.1",
     "cheerio": "0.22.0",
     "got": "^6.3.0",
+    "node-summary": "^1.1.0",
     "nodejs-text-summarizer": "2.0.3",
     "twitter": "1.4.0",
     "underscore": "1.8.3"
