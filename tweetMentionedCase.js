@@ -1,4 +1,4 @@
-const tweet = require('./postTweet'),
+const tweet = require('./tweet'),
     getEmojiSummary = require('./getEmojiSummary'),
     async = require('async'),
     _ = require('underscore'),
@@ -6,18 +6,18 @@ const tweet = require('./postTweet'),
 
 testMentions = [
     { text: "@grabbeh I am impressed! @caselawemoji"},
-    { text: "this is the one https://t.co/ywUHRHBu47", user: {screen_name:"grabbeh"}},
+    { text: "this is the one https://t.co/ywUHRHBu47", id_str: '770241796844691456', user: {screen_name:"grabbeh"}},
     { text: "This tweet does not contain a URL"}
 ]
 
-tweet.getMentions(function(err, mentions){
-    checkMentions(mentions, function(err, res){
+//tweet.getMentions(function(err, mentions){
+    checkMentions(testMentions, function(err, res){
         if (err)
             console.log(err)
         else   
             console.log(res)
     })
-})
+//})
 
 function checkMentions(mentions, fn){
     extractAnyBailiiLinks(mentions, function(err, bailiiMentions){
@@ -63,19 +63,19 @@ function replyToMention(mention, fn){
     getEmojiSummary(mention.url, function(err, res){
         if (err){
             fn(err)
-            console.log(err)
         }
-            
         else {
-            var content = "@" + mention.user.screen_name + " " + res.emojiSummary;
-            var content = content.slice(0, 140);
+            var content = {};
+            var status = "@" + mention.user.screen_name + " " + res.emojiSummary
+            var status = status.slice(0, 140)
+            content.status = status
+            content.in_reply_to_status_id = mention.id_str
             tweet.newTweet(content, function(err, res){
                 if (err)
-                    fn(new Error(err));
+                    fn(new Error(err))
                 else   
                     fn(null, res)
             })
-
         }
     })
 }
@@ -83,7 +83,7 @@ function replyToMention(mention, fn){
 function returnBailiiLink(text, fn){
     async.auto({
         link: function(cb){
-            checkForLink(text, cb);
+            checkForLink(text, cb)
         },
         expandedLink: ['link', function(results, cb){
             expandLink(results.link, cb);
@@ -128,4 +128,3 @@ function checkIfBailiiLink(url, fn){
         fn(new Error("No link to Bailii"));
     }
 }
-
