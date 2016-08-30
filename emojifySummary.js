@@ -1,4 +1,5 @@
 var got = require("got"),
+    _ = require("underscore"),
     async = require("async");
 
 module.exports = function(summary, fn){
@@ -19,7 +20,9 @@ module.exports = function(summary, fn){
     },  function(err){
         if (err)
             fn(err);
-        else
-            fn(null, emojis.join(" "));
-    });
-};
+        else {
+            var uniqEmojis = _.uniq(emojis)
+            fn(null, uniqEmojis.join(" "))
+        }
+    })
+}

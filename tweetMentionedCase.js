@@ -10,14 +10,14 @@ testMentions = [
     { text: "This tweet does not contain a URL"}
 ]
 
-//tweet.getMentions(function(err, mentions){
+tweet.getMentions(function(err, mentions){
     checkMentions(testMentions, function(err, res){
         if (err)
             console.log(err)
         else   
             console.log(res)
     })
-//})
+})
 
 function checkMentions(mentions, fn){
     extractAnyBailiiLinks(mentions, function(err, bailiiMentions){
