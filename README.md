@@ -6,11 +6,7 @@ In future you can maybe tweet a law case URL to him and he will respond with an 
 
 **Responding to Tweets**
 
-- GET https://api.twitter.com/1.1/statuses/mentions_timeline.json OR ideally set up stream of new Tweets (https://userstream.twitter.com/1.1/user.json)
-- Check ID store to see if any new tweets need responding to
-- If there are new tweets, process them accordingly
-- Store Tweet ID for future reference
-- Reply with person mentioning, with emoji summary only
+- Need to store IDs to compare against existing mentions to avoid duplication
 
 **Firebase**
     
