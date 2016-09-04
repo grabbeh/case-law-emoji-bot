@@ -1,9 +1,10 @@
 var got = require("got"),
     _ = require("underscore"),
-    async = require("async");
+    async = require("async")
 
 module.exports = function(summary, fn){
-    var emojis = [];
+    var emojis = []
+    console.log(summary)
     async.forEach(summary, function(item, callback){
         got('emoji.getdango.com/api/emoji', {
             json: true,
@@ -12,14 +13,15 @@ module.exports = function(summary, fn){
             }
         }).then(function(res){
             res.body.results.map(function(x){
-                if (x.score > 0.05)
+                if (x.score > 0){
                     emojis.push(x.text);
-                callback();
+                }
+                callback()
             })   
         });
     },  function(err){
         if (err)
-            fn(err);
+            fn(err)
         else {
             var uniqEmojis = _.uniq(emojis)
             fn(null, uniqEmojis.join(" "))

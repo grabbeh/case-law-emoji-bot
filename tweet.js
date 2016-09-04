@@ -1,4 +1,4 @@
-const cfg = require('./config/config'),
+const cfg = require('./config/twitter'),
     Twitter = require("twitter"),
     client = new Twitter({
         consumer_key: cfg.consumerkey,
