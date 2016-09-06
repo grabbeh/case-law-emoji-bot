@@ -7,7 +7,7 @@ const tweet = require('./tweet'),
 
 function getProcessedMentions(fn){
     fs.readFile('./processedMentions.json', function(err, data){
-        processedMentions = JSON.parse(data);
+        var processedMentions = JSON.parse(data);
         fn(null, processedMentions)
     })
 }
@@ -120,7 +120,7 @@ function returnBailiiLink(text, id, fn){
 
 function filterProcessedMentions(id, fn){ 
     getProcessedMentions(function(err, data){
-        async.forEach(processedMentions,function(item, callback){
+        async.forEach(data, function(item, callback){
             if (id === item){
                 callback('Existing mention')
             }
@@ -139,9 +139,11 @@ function filterProcessedMentions(id, fn){
 }
 
 function addToList(id, fn){
-    processedMentions.push(id)
-    fs.writeFile('processedMentions.json', JSON.stringify(processedMentions), function(err){
-        fn(null, true)
+    getProcessedMentions(function(err, data){
+        data.push(id)
+        fs.writeFile('processedMentions.json', JSON.stringify(data), function(err){
+            fn(null, true)
+        })
     })
 }
 
