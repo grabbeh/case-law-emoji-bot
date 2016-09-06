@@ -4,7 +4,7 @@ const baseUrl = require("./baseUrl"),
     provideCaseUrl = require("./provideCaseUrl"),
     tweet = require('./tweet')
 
-exports.module = function(){
+module.exports = function(){
     provideCaseUrl(baseUrl(), function(err, url){
         getEmojiSummary(url, function(err, res){
             var content = {}

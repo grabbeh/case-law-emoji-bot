@@ -19,7 +19,7 @@ testMentions = [
     { text: "HELLO WORLD", id_str:'987654321'}
 ]
 
-exports.module = function(){
+module.exports = function(){
     tweet.getMentions(function(err, mentions){
         checkMentions(mentions, function(err, res){
             if (err)
