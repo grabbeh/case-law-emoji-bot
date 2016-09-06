@@ -25,7 +25,6 @@ module.exports = function(text, fn){
          if (err)
              console.log(err)
          else {
-             console.log(_.union(results.ibm, results.naive))
              fn(null, _.union(results.ibm, results.naive))
          }
          

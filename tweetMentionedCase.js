@@ -5,9 +5,12 @@ const tweet = require('./tweet'),
     request = require('request'),
     fs = require('fs')
 
-fs.readFile('./processedMentions.json', function(err, data){
-    processedMentions = JSON.parse(data);
-})
+function getProcessedMentions(fn){
+    fs.readFile('./processedMentions.json', function(err, data){
+        processedMentions = JSON.parse(data);
+        fn(null, processedMentions)
+    })
+}
 
 testMentions = [
     { text: "@grabbeh I am impressed! @caselawemoji", id_str: '123456789'},
@@ -16,14 +19,16 @@ testMentions = [
     { text: "HELLO WORLD", id_str:'987654321'}
 ]
 
-tweet.getMentions(function(err, mentions){
-    checkMentions(mentions, function(err, res){
-        if (err)
-            console.log(err)
-        else   
-            console.log(res)
+exports.module = function(){
+    tweet.getMentions(function(err, mentions){
+        checkMentions(mentions, function(err, res){
+            if (err)
+                console.log(err)
+            else   
+                console.log(res)
+        })
     })
-})
+}
 
 function checkMentions(mentions, fn){
     extractAnyBailiiLinks(mentions, function(err, bailiiMentions){
@@ -114,20 +119,22 @@ function returnBailiiLink(text, id, fn){
 }
 
 function filterProcessedMentions(id, fn){ 
-    async.forEach(processedMentions,function(item, callback){
-        if (id === item){
-            callback('Existing mention')
-        }
-        else {
-            callback()
-        }
-    }, function(err){
-         if (err){
-             fn(new Error('Existing mention'))
-         }
-         else {
-             fn(null, id)
-         }
+    getProcessedMentions(function(err, data){
+        async.forEach(processedMentions,function(item, callback){
+            if (id === item){
+                callback('Existing mention')
+            }
+            else {
+                callback()
+            }
+        }, function(err){
+            if (err){
+                fn(new Error('Existing mention'))
+            }
+            else {
+                fn(null, id)
+            }
+        })
     })
 }
 
