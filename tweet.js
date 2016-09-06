@@ -8,7 +8,6 @@ const cfg = require('./config/twitter'),
     });
 
 exports.newTweet = function(content, fn){
-    console.log(content)
     client.post('statuses/update', content,  function(err, tweet, response) {
         if (err)
             fn(err)

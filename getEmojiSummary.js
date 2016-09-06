@@ -8,19 +8,19 @@ const provideCaseUrl = require("./provideCaseUrl"),
 module.exports = function(url, fn){
     async.auto({
         caseDetails: function(cb){
-            getCase(url, cb);
+            getCase(url, cb)
         },
         caseSummary: ['caseDetails', function(results, cb){
-            summariseCase(results.caseDetails, cb);
+            summariseCase(results.caseDetails, cb)
         }],
         emojiSummary: ['caseDetails', 'caseSummary', function(results, cb){
-            emojifySummary(results.caseSummary, cb);
+            emojifySummary(results.caseSummary, cb)
         }]
         }, 
     function(err, results){
         if (err)
-            fn(new Error(err));
+            fn(new Error(err))
         else
-            fn(null, results);
+            fn(null, results)
     })
 }

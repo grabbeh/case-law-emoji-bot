@@ -21,7 +21,6 @@ module.exports = function(text, fn){
             naive(text, cb)
         }
     }, function(err, results){
-        console.log(results)
          if (err)
              console.log(err)
          else {

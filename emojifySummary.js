@@ -4,7 +4,6 @@ var got = require("got"),
 
 module.exports = function(summary, fn){
     var emojis = []
-    console.log(summary)
     async.forEach(summary, function(item, callback){
         got('emoji.getdango.com/api/emoji', {
             json: true,
