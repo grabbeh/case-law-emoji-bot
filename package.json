@@ -1,15 +1,32 @@
 {
   "name": "case-law-emoji-work",
-  "scripts": {},
   "dependencies": {
+    "@google-cloud/language": "^1.2.0",
     "async": "2.0.1",
+    "async-request": "^1.2.0",
+    "babel-cli": "^6.26.0",
     "cheerio": "0.22.0",
     "got": "^6.3.0",
     "node-summary": "^1.1.0",
     "nodejs-text-summarizer": "2.0.3",
+    "request-promise-native": "^1.0.5",
     "twitter": "1.4.0",
     "underscore": "1.8.3",
     "watson-developer-cloud": "^2.2.0"
+  },
+  "scripts": {
+    "watch-src": "babel ./src --watch --out-dir ./compiled",
+    "compile-src": "babel ./src --out-dir ./compiled"
+  },
+  "babel": {
+    "plugins": [
+      [
+        "transform-es2015-modules-commonjs",
+        {
+          "allowTopLevelThis": true
+        }
+      ]
+    ]
   },
   "devDependencies": {}
 }
