@@ -65,7 +65,6 @@ const extractAnyBailiiLinks = async mentions => {
 };
 
 const replyToMention = async mention => {
-  console.log(mention);
   let emojiSummary = await (0, _getEmojiSummary2.default)(mention.url);
   if (!emojiSummary) {
     console.log('Error');
@@ -80,12 +79,11 @@ const replyToMention = async mention => {
 };
 
 const returnBailiiLink = async (text, id) => {
-  let newMention = filterProcessedMentions(id);
+  let newMention = await filterProcessedMentions(id);
   if (newMention) addToList(newMention);
   let link = checkForLink(text);
   if (link) {
     let expandedLink = await expandLink(link);
-
     let bailiiLink = await checkIfBailiiLink(expandedLink);
     if (bailiiLink) {
       return new Promise((resolve, reject) => {
@@ -100,7 +98,7 @@ const filterProcessedMentions = async id => {
   if (data.includes(id)) return false;else return id;
 };
 
-const addToList = async (id, fn) => {
+const addToList = async id => {
   let data = await getProcessedMentions();
   data.push(id);
   return writeFileAsync('../processedMentions.json', JSON.stringify(data));

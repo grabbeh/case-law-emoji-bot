@@ -10,10 +10,6 @@ var _tweetRandomCase2 = _interopRequireDefault(_tweetRandomCase);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-// setInterval(tweetMentionedCase, 1000 * 60 * 5)
+setInterval(_tweetMentionedCase2.default, 1000 * 60 * 5);
 
-// setInterval(tweetRandomCase, 1000 * 60 * 60 * 24)
-
-// setTimeout(tweetMentionedCase, 1000)
-
-(0, _tweetRandomCase2.default)();
+setInterval(_tweetRandomCase2.default, 1000 * 60 * 60 * 24);
