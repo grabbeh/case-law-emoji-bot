@@ -26,7 +26,6 @@ const tweetRandomCase = async () => {
   let status = `${url} ${emojiSummary}`;
   status.slice(0, 280);
   let content = { status };
-  console.log(content);
   (0, _tweet.newTweet)(content, function (err, res) {
     if (err) console.log(err);else console.log('Tweet posted');
   });

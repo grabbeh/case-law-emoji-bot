@@ -38,13 +38,13 @@ let testMentions = [{ text: '@grabbeh I am impressed! @caselawemoji', id_str: '1
 
 const tweetMentionedCase = () => {
   (0, _tweet.getMentions)((err, mentions) => {
+    console.log(mentions);
     checkMentions(mentions);
   });
 };
 
 const checkMentions = async mentions => {
   let bailiiMentions = await extractAnyBailiiLinks(mentions);
-
   for (var i = 0, l = bailiiMentions.length; i < l; i++) {
     await replyToMention(bailiiMentions[i]);
   }
@@ -80,15 +80,17 @@ const replyToMention = async mention => {
 
 const returnBailiiLink = async (text, id) => {
   let newMention = await filterProcessedMentions(id);
-  if (newMention) addToList(newMention);
-  let link = checkForLink(text);
-  if (link) {
-    let expandedLink = await expandLink(link);
-    let bailiiLink = await checkIfBailiiLink(expandedLink);
-    if (bailiiLink) {
-      return new Promise((resolve, reject) => {
-        resolve(bailiiLink);
-      });
+  if (newMention) {
+    addToList(newMention);
+    let link = checkForLink(text);
+    if (link) {
+      let expandedLink = await expandLink(link);
+      let bailiiLink = await checkIfBailiiLink(expandedLink);
+      if (bailiiLink) {
+        return new Promise((resolve, reject) => {
+          resolve(bailiiLink);
+        });
+      }
     }
   }
 };
@@ -129,7 +131,5 @@ function checkIfBailiiLink(url) {
     return false;
   }
 }
-
-checkMentions(testMentions);
 
 exports.default = tweetMentionedCase;
