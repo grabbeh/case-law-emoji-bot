@@ -22,7 +22,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 const getEmojiSummary = async url => {
   let caseDetails = await (0, _getCase2.default)(url);
   let caseSummary = await (0, _summariseCase2.default)(caseDetails);
-  let amended = caseSummary.slice(0, 50);
+  let amended = caseSummary.slice(0, 100);
   let emojiSummary = await (0, _emojifySummary2.default)(amended);
   return new Promise((resolve, reject) => {
     resolve(emojiSummary);

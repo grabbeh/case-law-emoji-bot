@@ -1,6 +1,12 @@
-const tool = require('./tweet')
+import { getTweet } from './tweet'
 
-tool.getTweet('770241796844691456', function (err, res) {
-  if (err) console.log(err)
-  else console.log(res)
-})
+const test = async id => {
+  try {
+    let res = await getTweet(id)
+    console.log(res)
+  } catch (e) {
+    console.log(e)
+  }
+}
+
+test(770241796844691500)

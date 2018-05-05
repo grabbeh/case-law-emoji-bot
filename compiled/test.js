@@ -1,7 +1,14 @@
 'use strict';
 
-const tool = require('./tweet');
+var _tweet = require('./tweet');
 
-tool.getTweet('770241796844691456', function (err, res) {
-  if (err) console.log(err);else console.log(res);
-});
+const test = async id => {
+  try {
+    let res = await (0, _tweet.getTweet)(id);
+    console.log(res);
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+test(770241796844691500);

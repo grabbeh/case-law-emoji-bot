@@ -3,10 +3,11 @@ import _ from 'lodash'
 
 const emojifiSummary = async summary => {
   let emojis = []
-  for (const item in summary) {
-    let { body: { results } } = await getSummary(item)
+  for (var i = 0, l = summary.length; i < l; i++) {
+    let item = summary[i]
+    let { body: { results } } = await getEmojis(item)
     _.map(results, i => {
-      if (i.score > 0) emojis.push(i.text)
+      if (i.score > 0.01) emojis.push(i.text)
     })
   }
   let uniqEmojis = _.join(_.uniq(emojis), ' ')
@@ -15,7 +16,7 @@ const emojifiSummary = async summary => {
   })
 }
 
-const getSummary = async item => {
+const getEmojis = async item => {
   return got('emoji.getdango.com/api/emoji', {
     json: true,
     query: {
@@ -23,5 +24,12 @@ const getSummary = async item => {
     }
   })
 }
+
+const test = async item => {
+  let res = await getEmojis(item)
+  console.log(res.body.results)
+}
+
+// test('USA')
 
 export default emojifiSummary

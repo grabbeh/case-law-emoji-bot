@@ -8,12 +8,14 @@ var _underscore = require('underscore');
 
 var _underscore2 = _interopRequireDefault(_underscore);
 
+var _language = require('@google-cloud/language');
+
+var _language2 = _interopRequireDefault(_language);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-const language = require('@google-cloud/language');
-
 // Instantiates a client
-const client = new language.LanguageServiceClient({
+const client = new _language2.default.LanguageServiceClient({
   keyFilename: '../config/google.json'
 });
 

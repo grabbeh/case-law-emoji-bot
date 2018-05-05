@@ -1,5 +1,5 @@
-const cfg = require('../config/twitter')
-const Twitter = require('twitter')
+import cfg from '../config/twitter'
+import Twitter from 'twitter'
 const client = new Twitter({
   consumer_key: cfg.consumerkey,
   consumer_secret: cfg.consumerSecret,
@@ -7,27 +7,16 @@ const client = new Twitter({
   access_token_secret: cfg.accessSecret
 })
 
-const newTweet = function (content, fn) {
-  client.post('statuses/update', content, function (err, tweet, response) {
-    if (err) fn(err)
-    else fn(null, response)
-  })
+const newTweet = async content => {
+  return client.post('statuses/update', content)
 }
 
-const getMentions = function (fn) {
-  client.get('statuses/mentions_timeline', function (err, mentions, response) {
-    if (err) {
-      fn(err)
-    } else !err
-    fn(null, mentions)
-  })
+const getMentions = async () => {
+  return client.get('statuses/mentions_timeline', {})
 }
 
-const getTweet = function (id, fn) {
-  client.get('statuses/show/' + id, {}, function (err, tweet, response) {
-    if (err) fn(err)
-    else fn(null, tweet)
-  })
+const getTweet = function (id) {
+  return client.get('statuses/show/', { id })
 }
 
 export { newTweet, getMentions, getTweet }

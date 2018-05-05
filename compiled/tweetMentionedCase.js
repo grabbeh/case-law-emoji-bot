@@ -36,11 +36,9 @@ let testMentions = [{ text: '@grabbeh I am impressed! @caselawemoji', id_str: '1
   user: { screen_name: 'grabbeh' }
 }, { text: 'This tweet does not contain a URL', id_str: '432423423' }, { text: 'HELLO WORLD', id_str: '987654321' }];
 
-const tweetMentionedCase = () => {
-  (0, _tweet.getMentions)((err, mentions) => {
-    console.log(mentions);
-    checkMentions(mentions);
-  });
+const tweetMentionedCase = async () => {
+  let mentions = await (0, _tweet.getMentions)();
+  checkMentions(mentions);
 };
 
 const checkMentions = async mentions => {

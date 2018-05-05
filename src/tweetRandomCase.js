@@ -7,12 +7,13 @@ const tweetRandomCase = async () => {
   let url = await provideCaseUrl(baseUrl())
   let emojiSummary = await getEmojiSummary(url)
   let status = `${url} ${emojiSummary}`
-  status.slice(0, 280)
+  status.slice(0, 270)
   let content = { status }
-  newTweet(content, function (err, res) {
-    if (err) console.log(err)
-    else console.log('Tweet posted')
-  })
+  try {
+    await newTweet(content)
+  } catch (e) {
+    console.log(e)
+  }
 }
 
 export default tweetRandomCase

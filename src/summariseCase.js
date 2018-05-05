@@ -1,6 +1,5 @@
 import _ from 'underscore'
-
-const language = require('@google-cloud/language')
+import language from '@google-cloud/language'
 
 // Instantiates a client
 const client = new language.LanguageServiceClient({

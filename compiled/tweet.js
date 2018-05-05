@@ -3,34 +3,35 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-const cfg = require('../config/twitter');
-const Twitter = require('twitter');
-const client = new Twitter({
-  consumer_key: cfg.consumerkey,
-  consumer_secret: cfg.consumerSecret,
-  access_token_key: cfg.accessKey,
-  access_token_secret: cfg.accessSecret
+exports.getTweet = exports.getMentions = exports.newTweet = undefined;
+
+var _twitter = require('../config/twitter');
+
+var _twitter2 = _interopRequireDefault(_twitter);
+
+var _twitter3 = require('twitter');
+
+var _twitter4 = _interopRequireDefault(_twitter3);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+const client = new _twitter4.default({
+  consumer_key: _twitter2.default.consumerkey,
+  consumer_secret: _twitter2.default.consumerSecret,
+  access_token_key: _twitter2.default.accessKey,
+  access_token_secret: _twitter2.default.accessSecret
 });
 
-const newTweet = function (content, fn) {
-  client.post('statuses/update', content, function (err, tweet, response) {
-    if (err) fn(err);else fn(null, response);
-  });
+const newTweet = async content => {
+  return client.post('statuses/update', content);
 };
 
-const getMentions = function (fn) {
-  client.get('statuses/mentions_timeline', function (err, mentions, response) {
-    if (err) {
-      fn(err);
-    } else !err;
-    fn(null, mentions);
-  });
+const getMentions = async () => {
+  return client.get('statuses/mentions_timeline', {});
 };
 
-const getTweet = function (id, fn) {
-  client.get('statuses/show/' + id, {}, function (err, tweet, response) {
-    if (err) fn(err);else fn(null, tweet);
-  });
+const getTweet = function (id) {
+  return client.get('statuses/show/', { id });
 };
 
 exports.newTweet = newTweet;

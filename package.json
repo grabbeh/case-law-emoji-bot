@@ -10,7 +10,7 @@
     "node-summary": "^1.1.0",
     "nodejs-text-summarizer": "2.0.3",
     "request-promise-native": "^1.0.5",
-    "twitter": "1.4.0",
+    "twitter": "^1.7.1",
     "underscore": "1.8.3",
     "watson-developer-cloud": "^2.2.0"
   },

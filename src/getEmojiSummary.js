@@ -6,7 +6,7 @@ import emojifySummary from './emojifySummary'
 const getEmojiSummary = async url => {
   let caseDetails = await getCase(url)
   let caseSummary = await summariseCase(caseDetails)
-  let amended = caseSummary.slice(0, 50)
+  let amended = caseSummary.slice(0, 100)
   let emojiSummary = await emojifySummary(amended)
   return new Promise((resolve, reject) => {
     resolve(emojiSummary)

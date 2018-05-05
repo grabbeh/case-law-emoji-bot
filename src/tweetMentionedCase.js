@@ -22,11 +22,9 @@ let testMentions = [
   { text: 'HELLO WORLD', id_str: '987654321' }
 ]
 
-const tweetMentionedCase = () => {
-  getMentions((err, mentions) => {
-    console.log(mentions)
-    checkMentions(mentions)
-  })
+const tweetMentionedCase = async () => {
+  let mentions = await getMentions()
+  checkMentions(mentions)
 }
 
 const checkMentions = async mentions => {
