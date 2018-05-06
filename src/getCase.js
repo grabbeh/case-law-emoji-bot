@@ -1,7 +1,10 @@
 import cheerio from 'cheerio'
 import request from 'async-request'
+import provideCaseUrl from './provideCaseUrl'
+import baseUrl from './baseUrl'
 
-const getCase = async url => {
+const getCase = async () => {
+  let url = await provideCaseUrl(baseUrl())
   let { body } = await request(url)
   return new Promise((resolve, reject) => {
     let $ = cheerio.load(body)
@@ -12,7 +15,8 @@ const getCase = async url => {
       })
       .get()
       .join(' ')
-    resolve(caseText)
+    if (caseText.length > 3000) resolve({ url, caseText })
+    else getCase()
   })
 }
 

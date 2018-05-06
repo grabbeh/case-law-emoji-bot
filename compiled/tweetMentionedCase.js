@@ -68,10 +68,10 @@ const replyToMention = async mention => {
     console.log('Error');
   } else {
     var status = `@${mention.user.screen_name} ${emojiSummary}`;
-    status = status.slice(0, 280);
+    status = status.slice(0, 270);
     let content = { status, in_reply_to_status_id: mention.id_str };
     (0, _tweet.newTweet)(content, function (err, res) {
-      if (err) new Error(err);else console.log('Tweet');
+      if (err) throw new Error(err);else console.log('Tweet');
     });
   }
 };
