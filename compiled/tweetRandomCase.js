@@ -14,8 +14,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 const tweetRandomCase = async () => {
   let { summary, url } = await (0, _getEmojiSummary2.default)();
-  let status = `${url} ${summary}`;
-  status.slice(0, 270);
+  let fullStatus = `${url} ${summary}`;
+  let status = fullStatus.slice(0, 260);
   let content = { status };
   try {
     await (0, _tweet.newTweet)(content);
@@ -23,7 +23,5 @@ const tweetRandomCase = async () => {
     console.log(e);
   }
 };
-
-tweetRandomCase();
 
 exports.default = tweetRandomCase;

@@ -7,6 +7,7 @@
     "babel-cli": "^6.26.0",
     "cheerio": "0.22.0",
     "got": "^6.3.0",
+    "node-cron": "^1.2.1",
     "node-summary": "^1.1.0",
     "nodejs-text-summarizer": "2.0.3",
     "request-promise-native": "^1.0.5",
