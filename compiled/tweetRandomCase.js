@@ -24,4 +24,6 @@ const tweetRandomCase = async () => {
   }
 };
 
+tweetRandomCase();
+
 exports.default = tweetRandomCase;

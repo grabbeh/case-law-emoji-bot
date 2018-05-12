@@ -1,11 +1,13 @@
 import cron from 'node-cron'
-import tweetRandomCase from './tweetRandomCase'
-import tweetMentionedCase from './tweetMentionedCase'
 
-cron.schedule('5 10 * * *', () => {
-  tweetRandomCase()
+cron.schedule('* 10 * * *', () => {
+  '/usr/local/bin/node /mnt/c/Users/mbg/Documents/case-law-emoji-bot/compiled/tweetRandomCase'
 })
 
-cron.schedule('5 * * * *', () => {
-  tweetMentionedCase()
+cron.schedule('*/5 * * * *', () => {
+  '/usr/local/bin/node /mnt/c/Users/mbg/Documents/case-law-emoji-bot/compiled/tweetMentionedCase'
+})
+
+cron.schedule('*/1 * * * *', () => {
+  '/usr/local/bin/node /mnt/c/Users/mbg/Documents/case-law-emoji-bot/compiled/test.js'
 })

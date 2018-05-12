@@ -67,7 +67,7 @@ const replyToMention = async mention => {
   if (!emojiSummary) {
     console.log('Error');
   } else {
-    var status = `@${mention.user.screen_name} ${emojiSummary}`;
+    let status = `@${mention.user.screen_name} ${emojiSummary}`;
     status = status.slice(0, 270);
     let content = { status, in_reply_to_status_id: mention.id_str };
     (0, _tweet.newTweet)(content, function (err, res) {
@@ -129,5 +129,7 @@ function checkIfBailiiLink(url) {
     return false;
   }
 }
+
+tweetMentionedCase();
 
 exports.default = tweetMentionedCase;
