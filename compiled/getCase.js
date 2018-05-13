@@ -22,15 +22,19 @@ var _baseUrl2 = _interopRequireDefault(_baseUrl);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-const getCase = async () => {
-  let url = await (0, _provideCaseUrl2.default)((0, _baseUrl2.default)());
+const getCase = async mentionUrl => {
+  let url;
+  if (mentionUrl) url = mentionUrl;else url = await (0, _provideCaseUrl2.default)((0, _baseUrl2.default)());
   let { body } = await (0, _asyncRequest2.default)(url);
-  return new Promise((resolve, reject) => {
+
+  return new Promise(resolve => {
     let $ = _cheerio2.default.load(body);
-    let caseText = $('body').find('p').map(function (index, el) {
+    let caseText = $('body').find('div').map(function (index, el) {
       return $(this).text();
     }).get().join(' ');
-    if (caseText.length > 3000) resolve({ url, caseText });else getCase();
+    if (caseText.length > 3000) {
+      resolve({ url, caseText });
+    } else getCase(mentionUrl);
   });
 };
 

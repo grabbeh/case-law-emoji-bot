@@ -7,7 +7,7 @@ const emojifiSummary = async summary => {
     let item = summary[i]
     let { body: { results } } = await getEmojis(item)
     _.map(results, i => {
-      if (i.score > 0.01) emojis.push(i.text)
+      if (i.score > 0.075) emojis.push(i.text)
     })
   }
   let uniqEmojis = _.join(_.uniq(emojis), ' ')
@@ -24,12 +24,5 @@ const getEmojis = async item => {
     }
   })
 }
-
-const test = async item => {
-  let res = await getEmojis(item)
-  console.log(res.body.results)
-}
-
-// test('USA')
 
 export default emojifiSummary

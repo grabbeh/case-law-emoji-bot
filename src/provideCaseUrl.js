@@ -1,6 +1,5 @@
 import cheerio from 'cheerio'
 import _ from 'underscore'
-// import request from 'request-promise-native'
 import request from 'async-request'
 
 const provideCaseUrl = async url => {

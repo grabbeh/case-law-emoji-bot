@@ -28,5 +28,5 @@ const provideCaseUrl = async url => {
     resolve(`http://www.bailii.org${_underscore2.default.sample(_underscore2.default.values(urlArray))}`);
   });
 };
-// import request from 'request-promise-native'
+
 exports.default = provideCaseUrl;

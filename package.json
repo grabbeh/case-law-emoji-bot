@@ -1,5 +1,6 @@
 {
   "name": "case-law-emoji-work",
+  "version": "0.0.1",
   "dependencies": {
     "@google-cloud/language": "^1.2.0",
     "async": "2.0.1",
@@ -10,10 +11,8 @@
     "node-cron": "^1.2.1",
     "node-summary": "^1.1.0",
     "nodejs-text-summarizer": "2.0.3",
-    "request-promise-native": "^1.0.5",
     "twitter": "^1.7.1",
-    "underscore": "1.8.3",
-    "watson-developer-cloud": "^2.2.0"
+    "underscore": "1.8.3"
   },
   "scripts": {
     "watch-src": "babel ./src --watch --out-dir ./compiled",

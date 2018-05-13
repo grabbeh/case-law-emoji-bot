@@ -20,7 +20,7 @@ const emojifiSummary = async summary => {
     let item = summary[i];
     let { body: { results } } = await getEmojis(item);
     _lodash2.default.map(results, i => {
-      if (i.score > 0.01) emojis.push(i.text);
+      if (i.score > 0.075) emojis.push(i.text);
     });
   }
   let uniqEmojis = _lodash2.default.join(_lodash2.default.uniq(emojis), ' ');
@@ -37,12 +37,5 @@ const getEmojis = async item => {
     }
   });
 };
-
-const test = async item => {
-  let res = await getEmojis(item);
-  console.log(res.body.results);
-};
-
-// test('USA')
 
 exports.default = emojifiSummary;

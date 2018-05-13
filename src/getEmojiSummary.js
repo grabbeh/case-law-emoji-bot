@@ -3,11 +3,10 @@ import summariseCase from './summariseCase'
 import emojifySummary from './emojifySummary'
 
 // Takes URL from Bailii.org and returns emoji summary
-const getEmojiSummary = async () => {
-  let { url, caseText } = await getCase()
+const getEmojiSummary = async mentionUrl => {
+  let { url, caseText } = await getCase(mentionUrl)
   let caseSummary = await summariseCase(caseText)
-  let amended = caseSummary.slice(0, 100)
-  let summary = await emojifySummary(amended)
+  let summary = await emojifySummary(caseSummary)
   return new Promise((resolve, reject) => {
     resolve({ url, summary })
   })
