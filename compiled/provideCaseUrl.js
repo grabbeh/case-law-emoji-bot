@@ -20,7 +20,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 const provideCaseUrl = async url => {
   let { body } = await (0, _asyncRequest2.default)(url);
-  return new Promise((resolve, reject) => {
+  return new Promise(resolve => {
     let $ = _cheerio2.default.load(body);
     let urlArray = $('ul').find('li').find('a').map(function (index, el) {
       return $(this).attr('href');

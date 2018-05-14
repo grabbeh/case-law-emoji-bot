@@ -8,20 +8,20 @@ const getCase = async mentionUrl => {
   if (mentionUrl) url = mentionUrl
   else url = await provideCaseUrl(baseUrl())
   let { body } = await request(url)
-
-  return new Promise(resolve => {
-    let $ = cheerio.load(body)
-    let caseText = $('body')
-      .find('div')
-      .map(function (index, el) {
-        return $(this).text()
-      })
-      .get()
-      .join(' ')
-    if (caseText.length > 3000) {
-      resolve({ url, caseText })
-    } else getCase(mentionUrl)
-  })
+  let $ = cheerio.load(body)
+  let caseText = $('body')
+    .find('div')
+    .find('p')
+    .map(function (index, el) {
+      return $(this).text()
+    })
+    .get()
+    .join(' ')
+  if (!(caseText.length > 3000)) {
+    return getCase(mentionUrl)
+  } else {
+    return { url, caseText }
+  }
 }
 
 export default getCase

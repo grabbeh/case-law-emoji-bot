@@ -19,6 +19,7 @@ const client = new _language2.default.LanguageServiceClient({
 });
 
 const summariseCase = async content => {
+  console.log('Summarise fn called');
   let results = await client.analyzeEntities({
     document: {
       content,

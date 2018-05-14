@@ -26,16 +26,15 @@ const getCase = async mentionUrl => {
   let url;
   if (mentionUrl) url = mentionUrl;else url = await (0, _provideCaseUrl2.default)((0, _baseUrl2.default)());
   let { body } = await (0, _asyncRequest2.default)(url);
-
-  return new Promise(resolve => {
-    let $ = _cheerio2.default.load(body);
-    let caseText = $('body').find('div').map(function (index, el) {
-      return $(this).text();
-    }).get().join(' ');
-    if (caseText.length > 3000) {
-      resolve({ url, caseText });
-    } else getCase(mentionUrl);
-  });
+  let $ = _cheerio2.default.load(body);
+  let caseText = $('body').find('div').find('p').map(function (index, el) {
+    return $(this).text();
+  }).get().join(' ');
+  if (!(caseText.length > 3000)) {
+    return getCase(mentionUrl);
+  } else {
+    return { url, caseText };
+  }
 };
 
 exports.default = getCase;
