@@ -37,10 +37,7 @@ const summariseCase = async content => {
   let revised = _.map(sortable.slice(0, 100), i => {
     return i[0]
   })
-
-  return new Promise((resolve, reject) => {
-    resolve(revised)
-  })
+  return revised
 }
 
 export default summariseCase
