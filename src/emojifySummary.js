@@ -11,9 +11,7 @@ const emojifiSummary = async summary => {
     })
   }
   let uniqEmojis = _.join(_.uniq(emojis), ' ')
-  return new Promise((resolve, reject) => {
-    resolve(uniqEmojis)
-  })
+  return uniqEmojis
 }
 
 const getEmojis = async item => {
