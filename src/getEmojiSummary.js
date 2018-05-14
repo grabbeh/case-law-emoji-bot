@@ -10,9 +10,7 @@ const getEmojiSummary = async mentionUrl => {
     console.log(url)
     let caseSummary = await summariseCase(caseText)
     let summary = await emojifySummary(caseSummary)
-    return new Promise((resolve, reject) => {
-      resolve({ url, summary })
-    })
+      return { url, summary })
   } catch (e) {
     console.log(e)
   }
