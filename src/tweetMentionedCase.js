@@ -50,9 +50,7 @@ const extractAnyBailiiLinks = async mentions => {
       bailiiMentions.push(mentions[i])
     }
   }
-  return new Promise(resolve => {
-    resolve(bailiiMentions)
-  })
+  return bailiiMentions)
 }
 
 const replyToMention = async mention => {
@@ -74,11 +72,7 @@ const returnBailiiLink = async mention => {
   let newMention = await filterProcessedMentions(mention.id_str)
   if (newMention) {
     let bailiiLink = await checkIfBailiiLink(mention)
-    if (bailiiLink) {
-      return new Promise((resolve, reject) => {
-        resolve(bailiiLink)
-      })
-    }
+    if (bailiiLink) return bailiiLink
   }
 }
 
