@@ -19,7 +19,6 @@ const client = new _language2.default.LanguageServiceClient({
 });
 
 const summariseCase = async content => {
-  console.log('Summarise fn called');
   let results = await client.analyzeEntities({
     document: {
       content,
@@ -48,10 +47,7 @@ const summariseCase = async content => {
   let revised = _lodash2.default.map(sortable.slice(0, 100), i => {
     return i[0];
   });
-
-  return new Promise((resolve, reject) => {
-    resolve(revised);
-  });
+  return revised;
 };
 
 exports.default = summariseCase;

@@ -50,7 +50,7 @@ const extractAnyBailiiLinks = async mentions => {
       bailiiMentions.push(mentions[i])
     }
   }
-  return bailiiMentions)
+  return bailiiMentions
 }
 
 const replyToMention = async mention => {

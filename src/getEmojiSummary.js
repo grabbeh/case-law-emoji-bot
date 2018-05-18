@@ -6,11 +6,10 @@ import emojifySummary from './emojifySummary'
 const getEmojiSummary = async mentionUrl => {
   try {
     let { url, caseText } = await getCase(mentionUrl)
-    // getCase not returning if recursive call
-    console.log(url)
+    // getCase not returning if recursive callF
     let caseSummary = await summariseCase(caseText)
     let summary = await emojifySummary(caseSummary)
-      return { url, summary })
+    return { url, summary }
   } catch (e) {
     console.log(e)
   }

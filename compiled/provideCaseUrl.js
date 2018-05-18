@@ -20,13 +20,11 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 const provideCaseUrl = async url => {
   let { body } = await (0, _asyncRequest2.default)(url);
-  return new Promise(resolve => {
-    let $ = _cheerio2.default.load(body);
-    let urlArray = $('ul').find('li').find('a').map(function (index, el) {
-      return $(this).attr('href');
-    });
-    resolve(`http://www.bailii.org${_underscore2.default.sample(_underscore2.default.values(urlArray))}`);
+  let $ = _cheerio2.default.load(body);
+  let urlArray = $('ul').find('li').find('a').map(function (index, el) {
+    return $(this).attr('href');
   });
+  return `http://www.bailii.org${_underscore2.default.sample(_underscore2.default.values(urlArray))}`;
 };
 
 exports.default = provideCaseUrl;

@@ -22,13 +22,10 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 const getEmojiSummary = async mentionUrl => {
   try {
     let { url, caseText } = await (0, _getCase2.default)(mentionUrl);
-    // getCase not returning if recursive call
-    console.log(url);
+    // getCase not returning if recursive callF
     let caseSummary = await (0, _summariseCase2.default)(caseText);
     let summary = await (0, _emojifySummary2.default)(caseSummary);
-    return new Promise((resolve, reject) => {
-      resolve({ url, summary });
-    });
+    return { url, summary };
   } catch (e) {
     console.log(e);
   }

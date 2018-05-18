@@ -24,9 +24,7 @@ const emojifiSummary = async summary => {
     });
   }
   let uniqEmojis = _lodash2.default.join(_lodash2.default.uniq(emojis), ' ');
-  return new Promise((resolve, reject) => {
-    resolve(uniqEmojis);
-  });
+  return uniqEmojis;
 };
 
 const getEmojis = async item => {

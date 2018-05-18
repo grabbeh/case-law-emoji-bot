@@ -8,6 +8,7 @@ const tweetRandomCase = async () => {
   let content = { status }
   try {
     await newTweet(content)
+    console.log('Tweet posted')
   } catch (e) {
     console.log(e)
   }
