@@ -5,9 +5,9 @@ import emojifySummary from './emojifySummary'
 // Takes URL from Bailii.org and returns emoji summary
 const getEmojiSummary = async mentionUrl => {
   try {
-    let { url, caseText } = await getCase(mentionUrl)
+    let { url, text } = await getCase(mentionUrl)
     // getCase not returning if recursive callF
-    let caseSummary = await summariseCase(caseText)
+    let caseSummary = await summariseCase(text)
     let summary = await emojifySummary(caseSummary)
     return { url, summary }
   } catch (e) {

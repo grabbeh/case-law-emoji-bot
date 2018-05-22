@@ -11,7 +11,8 @@
     "node-summary": "^1.1.0",
     "nodejs-text-summarizer": "2.0.3",
     "twitter": "^1.7.1",
-    "underscore": "1.8.3"
+    "underscore": "1.8.3",
+    "unfluff": "^3.0.1"
   },
   "scripts": {
     "watch-src": "babel ./src --watch --out-dir ./compiled",

@@ -21,9 +21,9 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 // Takes URL from Bailii.org and returns emoji summary
 const getEmojiSummary = async mentionUrl => {
   try {
-    let { url, caseText } = await (0, _getCase2.default)(mentionUrl);
+    let { url, text } = await (0, _getCase2.default)(mentionUrl);
     // getCase not returning if recursive callF
-    let caseSummary = await (0, _summariseCase2.default)(caseText);
+    let caseSummary = await (0, _summariseCase2.default)(text);
     let summary = await (0, _emojifySummary2.default)(caseSummary);
     return { url, summary };
   } catch (e) {

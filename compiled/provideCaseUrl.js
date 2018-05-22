@@ -24,6 +24,7 @@ const provideCaseUrl = async url => {
   let urlArray = $('ul').find('li').find('a').map(function (index, el) {
     return $(this).attr('href');
   });
+  // check for 0 if 0 get new case
   return `http://www.bailii.org${_underscore2.default.sample(_underscore2.default.values(urlArray))}`;
 };
 

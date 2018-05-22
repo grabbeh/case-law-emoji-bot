@@ -40,6 +40,7 @@ const tweetMentionedCase = async () => {
 const checkMentions = async mentions => {
   let bailiiMentions = await extractAnyBailiiLinks(mentions);
   if (bailiiMentions.length > 0) {
+    console.log('New mentions');
     for (var i = 0, l = bailiiMentions.length; i < l; i++) {
       try {
         await replyToMention(bailiiMentions[i]);
@@ -69,11 +70,11 @@ const replyToMention = async mention => {
   let { summary } = await (0, _getEmojiSummary2.default)(url);
   let status = `@${mention.user.screen_name} ${summary}`;
   status = status.slice(0, 270);
-  console.log(status);
   let content = { status, in_reply_to_status_id: id_str };
   try {
     await (0, _tweet.newTweet)(content);
     await addToList(id_str);
+    console.log('Tweet posted');
   } catch (e) {
     console.log(e);
   }
