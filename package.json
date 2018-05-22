@@ -1,6 +1,5 @@
 {
   "name": "case-law-emoji-work",
-  "version": "0.0.1",
   "dependencies": {
     "@google-cloud/language": "^1.2.0",
     "async": "2.0.1",
