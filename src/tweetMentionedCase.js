@@ -22,8 +22,8 @@ let testMentions = [
 ]
 
 const tweetMentionedCase = async () => {
-  // let mentions = await getMentions()
-  checkMentions(testMentions)
+  let mentions = await getMentions()
+  checkMentions(mentions)
 }
 
 const checkMentions = async mentions => {
