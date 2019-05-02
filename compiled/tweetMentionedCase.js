@@ -33,14 +33,13 @@ let testMentions = [{ text: '@grabbeh I am impressed! @caselawemoji', id_str: '1
 }, { text: 'This tweet does not contain a URL', id_str: '432423423' }, { text: 'HELLO WORLD', id_str: '987654321' }];
 
 const tweetMentionedCase = async () => {
-  let mentions = await (0, _tweet.getMentions)();
-  checkMentions(mentions);
+  // let mentions = await getMentions()
+  checkMentions(testMentions);
 };
 
 const checkMentions = async mentions => {
   let bailiiMentions = await extractAnyBailiiLinks(mentions);
   if (bailiiMentions.length > 0) {
-    console.log('New mentions');
     for (var i = 0, l = bailiiMentions.length; i < l; i++) {
       try {
         await replyToMention(bailiiMentions[i]);
@@ -100,7 +99,9 @@ const addToList = async id => {
 };
 
 function checkIfBailiiLink(mention) {
-  let { entities: { urls } } = mention;
+  let {
+    entities: { urls }
+  } = mention;
   if (urls.length === 0) return false;
   if (urls[0].expanded_url.indexOf('bailii') !== -1) {
     return urls[0].expanded_url;

@@ -22,7 +22,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 const getEmojiSummary = async mentionUrl => {
   try {
     let { url, text } = await (0, _getCase2.default)(mentionUrl);
-    // getCase not returning if recursive callF
+    // getCase not returning if recursive call
     let caseSummary = await (0, _summariseCase2.default)(text);
     let summary = await (0, _emojifySummary2.default)(caseSummary);
     return { url, summary };

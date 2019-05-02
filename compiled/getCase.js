@@ -4,9 +4,9 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _asyncRequest = require('async-request');
+var _axios = require('axios');
 
-var _asyncRequest2 = _interopRequireDefault(_asyncRequest);
+var _axios2 = _interopRequireDefault(_axios);
 
 var _provideCaseUrl = require('./provideCaseUrl');
 
@@ -25,8 +25,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 const getCase = async mentionUrl => {
   let url;
   if (mentionUrl) url = mentionUrl;else url = await (0, _provideCaseUrl2.default)((0, _baseUrl2.default)());
-  let { body } = await (0, _asyncRequest2.default)(url);
-  let { text } = (0, _unfluff2.default)(body);
+  let { data } = await (0, _axios2.default)(url);
+  let { text } = (0, _unfluff2.default)(data);
   // if random case and length is low, we call getCase again
   if (!(text.length > 2000) && !mentionUrl) {
     return getCase(mentionUrl);

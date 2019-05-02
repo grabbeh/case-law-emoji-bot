@@ -22,14 +22,13 @@ let testMentions = [
 ]
 
 const tweetMentionedCase = async () => {
-  let mentions = await getMentions()
-  checkMentions(mentions)
+  // let mentions = await getMentions()
+  checkMentions(testMentions)
 }
 
 const checkMentions = async mentions => {
   let bailiiMentions = await extractAnyBailiiLinks(mentions)
   if (bailiiMentions.length > 0) {
-    console.log('New mentions')
     for (var i = 0, l = bailiiMentions.length; i < l; i++) {
       try {
         await replyToMention(bailiiMentions[i])
@@ -90,7 +89,9 @@ const addToList = async id => {
 }
 
 function checkIfBailiiLink (mention) {
-  let { entities: { urls } } = mention
+  let {
+    entities: { urls }
+  } = mention
   if (urls.length === 0) return false
   if (urls[0].expanded_url.indexOf('bailii') !== -1) {
     return urls[0].expanded_url

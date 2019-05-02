@@ -1,18 +1,14 @@
 {
   "name": "case-law-emoji-work",
   "dependencies": {
-    "@google-cloud/language": "^1.2.0",
-    "async": "2.0.1",
-    "async-request": "^1.2.0",
-    "babel-cli": "^6.26.0",
+    "@google-cloud/language": "^2.1.0",
+    "axios": "^0.18.0",
     "cheerio": "0.22.0",
-    "got": "^6.3.0",
-    "node-cron": "^1.2.1",
-    "node-summary": "^1.1.0",
-    "nodejs-text-summarizer": "2.0.3",
+    "got": "^9.6.0",
+    "lodash": "^4.17.11",
     "twitter": "^1.7.1",
-    "underscore": "1.8.3",
-    "unfluff": "^3.0.1"
+    "underscore": "1.9.1",
+    "unfluff": "^3.2.0"
   },
   "scripts": {
     "watch-src": "babel ./src --watch --out-dir ./compiled",
@@ -28,5 +24,8 @@
       ]
     ]
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-plugin-transform-es2015-modules-commonjs": "^6.26.2"
+  }
 }
